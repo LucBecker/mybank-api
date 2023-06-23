@@ -1,10 +1,9 @@
 package com.lucbecker.mybank.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User implements Serializable {
@@ -19,6 +18,9 @@ public class User implements Serializable {
     private String login;
     private String password;
     private Double balance;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactions = new ArrayList<Transaction>();
 
     public User() {
     }
@@ -78,6 +80,14 @@ public class User implements Serializable {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
