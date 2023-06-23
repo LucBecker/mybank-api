@@ -1,5 +1,6 @@
 package com.lucbecker.mybank.controllers;
 
+import com.lucbecker.mybank.domain.Transaction;
 import com.lucbecker.mybank.domain.User;
 import com.lucbecker.mybank.dtos.UserDTO;
 import com.lucbecker.mybank.services.UserService;
@@ -54,5 +55,12 @@ public class UserController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         obj = service.fromDTO(newObj);
         return ResponseEntity.created(uri).build();
+    }
+
+    @PostMapping
+    public ResponseEntity<Transaction> makeWithdwawal(@PathVariable Integer id, @PathVariable Double value){
+        User user = service.findById(id);
+        Transaction transaction = service.makeWithdrawal(user, value);
+        return ResponseEntity.ok().body(transaction);
     }
 }

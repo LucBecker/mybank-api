@@ -1,6 +1,7 @@
 package com.lucbecker.mybank.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,14 +16,16 @@ public class Transaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @JsonFormat(pattern = "dd/MM/yyyy hh/MM/ss")
+    @JsonFormat(pattern = "dd/MM/yyyy hh:MM:ss")
     private LocalDateTime dateOfTransaction;
     private Boolean isItWithdraw;
     private Boolean isItDeposit;
     private Double valueOfTransaction;
     private Double balanceBeforeTransaction;
     private Double balanceAfterTransaction;
+    private String message;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -31,7 +34,8 @@ public class Transaction implements Serializable {
     }
 
     public Transaction(Integer id, LocalDateTime dateOfTransaction, Boolean isItWithdraw, Boolean isItDeposit,
-                       Double valueOfTransaction, Double balanceBeforeTransaction, Double balanceAfterTransaction, User user) {
+                       Double valueOfTransaction, Double balanceBeforeTransaction, Double balanceAfterTransaction,
+                       String message, User user) {
         this.id = id;
         this.dateOfTransaction = dateOfTransaction;
         this.isItWithdraw = isItWithdraw;
@@ -39,6 +43,7 @@ public class Transaction implements Serializable {
         this.valueOfTransaction = valueOfTransaction;
         this.balanceBeforeTransaction = balanceBeforeTransaction;
         this.balanceAfterTransaction = balanceAfterTransaction;
+        this.message = message;
         this.user = user;
     }
 
@@ -105,6 +110,15 @@ public class Transaction implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
