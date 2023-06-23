@@ -23,13 +23,27 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @ApiOperation(value = "Return all transactions")
-    @ApiResponse(code = 200, message = "Success method return")
+
+    @ApiOperation(value = "Return a list of UserDTO")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success method")
+    })
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll(){
         List<User> list = service.findAll();
         List<UserDTO> listDTO = list.stream().map(obj -> service.fromDTO(obj)).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @ApiOperation(value = "Return a UserDTO by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success"),
+            @ApiResponse(code = 404, message = "Not Found")
+    })
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<User> findById(@PathVariable Integer id){
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user);
     }
 
     @ApiOperation(value = "Insert a new User")
