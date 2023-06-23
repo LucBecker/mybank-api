@@ -5,6 +5,7 @@ import com.lucbecker.mybank.domain.User;
 import com.lucbecker.mybank.dtos.UserDTO;
 import com.lucbecker.mybank.repositories.TransactionRepository;
 import com.lucbecker.mybank.repositories.UserRepository;
+import com.lucbecker.mybank.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,8 @@ public class UserService {
 
     public User findById(Integer id) {
         Optional<User> user = repository.findById(id);
-        return user.orElse(null);
+        return user.orElseThrow(
+                () -> new ObjectNotFoundException("Object not found! Id: " + id + ", Type: " + User.class.getName()));
     }
 
     public Transaction makeWithdrawal(User user, Double value) {
