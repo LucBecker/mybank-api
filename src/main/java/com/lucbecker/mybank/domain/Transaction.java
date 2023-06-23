@@ -1,8 +1,11 @@
 package com.lucbecker.mybank.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 @Entity
 public class Transaction implements Serializable {
@@ -12,7 +15,8 @@ public class Transaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Date dateOfTransaction;
+    @JsonFormat(pattern = "dd/MM/yyyy hh/MM/ss")
+    private LocalDateTime dateOfTransaction;
     private Boolean isItWithdraw;
     private Boolean isItDeposit;
     private Double valueOfTransaction;
@@ -26,7 +30,7 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
-    public Transaction(Integer id, Date dateOfTransaction, Boolean isItWithdraw, Boolean isItDeposit,
+    public Transaction(Integer id, LocalDateTime dateOfTransaction, Boolean isItWithdraw, Boolean isItDeposit,
                        Double valueOfTransaction, Double balanceBeforeTransaction, Double balanceAfterTransaction, User user) {
         this.id = id;
         this.dateOfTransaction = dateOfTransaction;
@@ -46,11 +50,11 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-    public Date getDateOfTransaction() {
+    public LocalDateTime getDateOfTransaction() {
         return dateOfTransaction;
     }
 
-    public void setDateOfTransaction(Date dateOfTransaction) {
+    public void setDateOfTransaction(LocalDateTime dateOfTransaction) {
         this.dateOfTransaction = dateOfTransaction;
     }
 
