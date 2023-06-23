@@ -42,7 +42,22 @@ public class UserService {
             transactionRepository.save(transaction);
             return transaction;
         } else {
-            Transaction transaction =  new Transaction(null, LocalDateTime.now(), true, false, value, user.getBalance(), user.getBalance(), "Error, transaction not aproved", user);
+            Transaction transaction = new Transaction(null, LocalDateTime.now(), true, false, value, user.getBalance(), user.getBalance(), "Error, transaction not aproved", user);
+            transactionRepository.save(transaction);
+            return transaction;
+        }
+    }
+
+    public Transaction makeDeposit(User user, Double value) {
+        if (user.makeDeposit(value)) {
+            Transaction transaction = new Transaction(null, LocalDateTime.now(), false, true, value,
+                    user.getBalance() - value, user.getBalance(), "Successful transaction", user);
+            repository.save(user);
+            transactionRepository.save(transaction);
+            return transaction;
+        } else {
+            Transaction transaction = new Transaction(null, LocalDateTime.now(), false, true, value,
+                    user.getBalance(), user.getBalance(), "Error, transaction not aproved", user);
             transactionRepository.save(transaction);
             return transaction;
         }
