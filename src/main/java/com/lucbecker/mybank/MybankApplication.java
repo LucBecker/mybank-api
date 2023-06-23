@@ -21,7 +21,7 @@ public class MybankApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user = new User(null, "Valdir Cezar", "09874185968", "valdir", "123", 0.0);
+		User user = new User(null, "Lucas Becker", "38230614024", "becker", "123", 0.0);
 
 		userRepository.saveAll(Arrays.asList(user));
 	}
