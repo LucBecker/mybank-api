@@ -14,7 +14,9 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @Column(unique = true)
     private String cpf;
+    @Column(unique = true)
     private String login;
     private String password;
     private Double balance;
@@ -34,7 +36,7 @@ public class User implements Serializable {
         this.balance = balance;
     }
 
-    public boolean makeWithdrawal(Double valueOfWithdrawal ) {
+    public boolean makeWithdrawal(Double valueOfWithdrawal) {
         if (this.getBalance() >= valueOfWithdrawal) {
             this.setBalance(this.getBalance() - valueOfWithdrawal);
         } else {
@@ -43,7 +45,7 @@ public class User implements Serializable {
         return true;
     }
 
-    public boolean makeDeposit(Double deposit ) {
+    public boolean makeDeposit(Double deposit) {
         try {
             this.setBalance(this.getBalance() + deposit);
         } catch (Exception e) {

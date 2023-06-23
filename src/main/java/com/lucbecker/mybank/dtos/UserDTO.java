@@ -1,5 +1,7 @@
 package com.lucbecker.mybank.dtos;
 
+import com.lucbecker.mybank.domain.User;
+
 import java.io.Serializable;
 
 public class UserDTO implements Serializable {
@@ -16,13 +18,13 @@ public class UserDTO implements Serializable {
     public UserDTO() {
     }
 
-    public UserDTO(Integer id, String name, String cpf, String login, String password, Double balance) {
-        this.id = id;
-        this.name = name;
-        this.cpf = cpf;
-        this.login = login;
-        this.password = password;
-        this.balance = balance;
+    public UserDTO(User obj) {
+        this.id = obj.getId();
+        this.name = obj.getName();
+        this.cpf = obj.getCpf();
+        this.login = obj.getLogin();
+        this.password = obj.getPassword();
+        this.balance = obj.getBalance();
     }
 
     public Integer getId() {
