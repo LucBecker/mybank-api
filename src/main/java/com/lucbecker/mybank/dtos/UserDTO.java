@@ -2,6 +2,7 @@ package com.lucbecker.mybank.dtos;
 
 import com.lucbecker.mybank.domain.User;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 public class UserDTO implements Serializable {
@@ -9,9 +10,13 @@ public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String cpf;
+    @NotBlank
     private String login;
+    @NotBlank
     private String password;
     private Double balance;
 
